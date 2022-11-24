@@ -1,24 +1,14 @@
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
+import Header from '../components/header';
 
-export default function Home(){
-    return(
+export default function Home() {
+    return (
         <>
-            <Header>
-                <img src="" alt="Logo"/>
-
-                <div>
-
-                </div>
-            </Header>
+            <Header/>
         </>
     );
 }
 
-const Header = styled.header`
-    width: 100%;
-    height: 7.5rem;
-    background-color: var(--blue);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`;
