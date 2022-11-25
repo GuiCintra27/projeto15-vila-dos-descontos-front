@@ -1,11 +1,14 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/header";
 import UserContext from "../components/userContext";
 import CartItem from "./cartItem";
 
 export default function Cart() {
+    const navigate = useNavigate();
     const { TOKEN, cart, setCart } = useContext(UserContext);
     const URL = 'http://localhost:5000/cart';
     const header = { headers: { "Authorization": `Bearer ${TOKEN}` } };
@@ -17,7 +20,16 @@ export default function Cart() {
                 setCart(cartUpdated);
             })
             .catch((err) => {
-                console.log(err);
+                let error = err.response.data;
+                if(error === 'Not Found'){
+                    error = 'Usuário não está logado';
+                }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error
+                  });
+                navigate('/');
             });
     }, []);
 
@@ -43,6 +55,10 @@ export default function Cart() {
                         }
                     </div>
                 </div>
+
+                <Link to={'/checkout'}>
+                    <button>Finalizar Compra</button>
+                </Link>
             </Container>
         </>
     );
@@ -50,16 +66,15 @@ export default function Cart() {
 
 const Container = styled.div`
     width: 100%;
-    height: calc(100vh - 7.5rem);
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    background-color: var(--blue);
     padding-top: 4rem;
+    background-color: white;
 
     & > h1{
         width: 90vw;
         margin-inline: auto;
-        color: var(--white);
         font-size: 22px;
     }
 
@@ -104,5 +119,25 @@ const Container = styled.div`
            height: .17rem;
            background-color: var(--break-line);
        }
+    }
+
+    & > a{
+        display: flex;
+        justify-content: center;
+    }
+
+    & > a > button{
+        margin: 2rem auto 2rem auto;
+        height: 5rem;
+        width: 90vw;
+        border-radius: 5px;
+        border: none;
+        background: var(--blue);
+        box-shadow: var(--blue) 0 10px 20px -10px;
+        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: 700;
+        outline: 0 solid transparent;
+        padding: 8px 18px;
     }
 `;

@@ -1,14 +1,13 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 import styled from "styled-components";
 import Header from '../components/header';
 import cover from '../../assets/site-elements/Background.png';
-import UserContext from '../components/userContext';
 import Product from './product';
+import ProductsContext from '../components/productsCotext';
 
 export default function Home() {
-    const {products, setProducts} = useContext(UserContext);
+    const {products, setProducts} = useContext(ProductsContext);
     const URL = 'http://localhost:5000/products';
 
     useEffect(() => {
@@ -31,8 +30,8 @@ export default function Home() {
             <ProductsDescription>Produtos em Destaque</ProductsDescription>
 
             <Products>
-                {products.map((item) => (
-                    <Product name={item.name} image={item.image} value={item.value} />
+                {products.map((item, index) => (
+                    <Product key={index} name={item.name} image={item.image} value={item.value}/>
                 ))}
             </Products>
         </>
@@ -57,6 +56,15 @@ const Products = styled.div`
     gap: 1rem;
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+
+    ::-webkit-scrollbar{
+      width: 0px;
+      height: 0px;
+    }
+
+    ::-webkit-scrollbar-track{
+      background: transparent;
+    }
 `;
 
 const ProductsDescription = styled.h1`

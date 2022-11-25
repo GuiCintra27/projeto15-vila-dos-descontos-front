@@ -1,9 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Product({name, image, value}){
     const formatedValue = Number(value).toFixed(2);
+    const navigate = useNavigate();
+
+    function goToProduct(){
+        navigate(`/product/${name}`);
+    }
+
     return(
-        <Container>
+        <Container onClick={goToProduct}>
             <img src={image} alt={name}/>
 
             <h4>{name}</h4>

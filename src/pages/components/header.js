@@ -1,14 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import logo from "../../assets/site-elements/LogoWhite.png";
+import logoBlue from "../../assets/site-elements/Logo.png";
 
-export default function Header() {
-    const navigate = useNavigate();
-
+export default function Header({color='blue'}) {
     return (
-        <PageHeader>
+        <PageHeader color={color} iconColor={color === 'blue' ? 'white' : 'black'}>
             <Link to={'/'}>
-                <img src={logo} alt="Logo" />
+                <img src={color === 'blue' ? logoBlue : logo} alt="Logo" />
             </Link>
 
             <div>
@@ -27,7 +26,7 @@ export default function Header() {
 const PageHeader = styled.header`
     width: 100%;
     height: 7.5rem;
-    background-color: var(--white);
+    background-color: var(--${props => props.color});
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -51,6 +50,7 @@ const PageHeader = styled.header`
 
         ion-icon{
             font-size: 30px;
+            color: ${props => props.iconColor};
         }
     }
 `;
