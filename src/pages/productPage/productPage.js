@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import Header from "../components/header";
 import Loading from "../components/loading";
 import UserContext from "../components/userContext";
+import cart from "../../assets/site-elements/cart.png"
 
 export default function ProductPage() {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function ProductPage() {
     const { productName } = useParams();
     const [product, setProduct] = useState('');
     const [quantity, setQuantity] = useState(1);
-    const header = {headers: {'Authorization' : `Bearer ${TOKEN}`}};
+    const header = { headers: { 'Authorization': `Bearer ${TOKEN}` } };
     const PRODUCTSURL = 'http://localhost:5000/products';
     const CARTURL = 'http://localhost:5000/cart';
 
@@ -66,25 +67,25 @@ export default function ProductPage() {
     }
 
     function buyProduct() {
-        const body = {productName, quantity};
+        const body = { productName, quantity };
         axios.post(CARTURL, body, header)
-        .then(() => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Compra efetuada com sucesso!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            navigate('/cart');
-        })
-        .catch((err) => {
-            console.log(err);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'A compra não pôde ser efetuada'
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Produto adicionado à cesta!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate('/cart');
+            })
+            .catch((err) => {
+                console.log(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'O produto não pôde ser selecionado'
+                });
             });
-        });
     }
 
 
@@ -110,7 +111,10 @@ export default function ProductPage() {
                         </div>
                     </BuyInformations>
 
-                    <BuyButton onClick={buyProduct}>Finalizar Compra</BuyButton>
+                    <BuyButton onClick={buyProduct}>
+                        <img src={cart} alt="cart" />
+                        Comprar
+                    </BuyButton>
                 </>
             )}
         </Body>
@@ -218,8 +222,16 @@ const BuyButton = styled.button`
     background: var(--blue);
     box-shadow: var(--blue) 0 10px 20px -10px;
     color: #FFFFFF;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     outline: 0 solid transparent;
     padding: 8px 18px;
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        margin-top: -.5rem;
+    }
 `;
