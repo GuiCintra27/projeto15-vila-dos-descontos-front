@@ -15,7 +15,7 @@ function SignUp() {
 
     function Register(e){
 
-        const Api = "";
+        const Api = "https://vila-dos-descontos.onrender.com/sign-in";
         
         const objUser = {
             name,
@@ -61,7 +61,7 @@ function SignUp() {
 
 const App = styled.form`
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;

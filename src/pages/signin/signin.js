@@ -1,37 +1,31 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Logo from "../../assets/site-elements/LogoWhite.png"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import UserContext from "../components/userContext";
 
 function SignIn() {
-
+    const {setTOKEN} = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
     const nav = useNavigate();
 
-    function Register(e) {
-
-        const Api = ""
+    function Register() {
+        const Api = "https://vila-dos-descontos.onrender.com/sign-in"
 
         const objUser = {
             email,
             password
-        }
+        };
 
-        console.log(objUser);
-
-        const promise = axios.post(Api, objUser);
-        promise.then(() => {
-
+        axios.post(Api, objUser)
+        .then((response) => {
+            setTOKEN(response.data);
             nav("/");
-
-
-        });
-        promise.catch((err) => err.details.error)
-
-
+        })
+        .catch((err) => console.log(err.details.error));
     }
 
     function CheckRegister(e) {
@@ -58,6 +52,7 @@ function SignIn() {
 const App = styled.form`
     width: 100vw;
     min-height: 600px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-    const [TOKEN, setTOKEN] = useState('123');
+    const [TOKEN, setTOKEN] = useState('');
     const [cart, setCart] = useState([]);
 
     return (
