@@ -52,6 +52,7 @@ function SignIn() {
 const App = styled.form`
     width: 100vw;
     min-height: 600px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
