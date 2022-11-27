@@ -1,9 +1,26 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import logo from "../../assets/site-elements/LogoWhite.png";
 import logoBlue from "../../assets/site-elements/Logo.png";
+import { useContext, useEffect } from 'react';
+import UserContext from './userContext';
+import Swal from 'sweetalert2';
 
-export default function Header({color='blue'}) {
+export default function Header({ color = 'blue' }) {
+    const { TOKEN, setTOKEN } = useContext(UserContext);
+    const navigate = useNavigate();
+    
+    function logOut() {
+        setTOKEN('');
+        Swal.fire({
+            icon: 'success',
+            title: 'Usuário deslogado com sucesso',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        navigate('/');
+    }
+
     return (
         <PageHeader color={color} iconColor={color === 'blue' ? 'white' : 'black'}>
             <Link to={'/'}>
@@ -15,9 +32,13 @@ export default function Header({color='blue'}) {
                     <ion-icon name="bag-outline"></ion-icon>
                 </Link>
 
-                <Link to={'/sign-in'}>
-                    <ion-icon name="log-in-outline"></ion-icon>
-                </Link>
+                {TOKEN.length === 0 ? (
+                    <Link to={'/sign-in'}>
+                        <ion-icon name="log-in-outline"></ion-icon>
+                    </Link>
+                ) : (
+                    <ion-icon name="log-out-outline" onClick={logOut} ></ion-icon>
+                )}
             </div>
         </PageHeader>
     );

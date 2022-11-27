@@ -55,8 +55,8 @@ export default function Cart() {
                         <>
                             <div className="scroll">
                                 {
-                                    cart.map((item) => (
-                                        <CartItem name={item.name} image={item.image} quantity={item.quantity} value={item.value} />
+                                    cart.map((item, index) => (
+                                        <CartItem key={index} name={item.name} image={item.image} quantity={item.quantity} value={item.value} />
                                     ))
                                 }
 
