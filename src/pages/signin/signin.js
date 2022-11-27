@@ -3,30 +3,38 @@ import axios from "axios";
 import { useState } from "react";
 import Logo from "../../assets/site-elements/LogoWhite.png"
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function SignIn() {
 
-    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
-    const [type, setType] = useState("");
     const nav = useNavigate();
 
-    function Register(e){
-        
+    function Register(e) {
+
+        const Api = ""
+
         const objUser = {
-            name,
             email,
-            password,
-            type
+            password
         }
 
-        console.log(objUser)
-        
+        console.log(objUser);
+
+        const promise = axios.post(Api, objUser);
+        promise.then(() => {
+
+            nav("/");
+
+
+        });
+        promise.catch((err) => err.details.error)
+
 
     }
 
-    function CheckRegister(e){
+    function CheckRegister(e) {
         e.preventDefault();
         Register()
     }
@@ -36,11 +44,12 @@ function SignIn() {
             <Header>
                 <img src={Logo} alt="LogoWhite" />
             </Header>
-            <input placeholder="Name" onChange={(e) => setName(e.target.value)} type="text" />
-            <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} type="email" />
-            <input placeholder="Password" onChange={(e) => setPassword(e.target.value)} type="password" />
-            <input placeholder="Cliente/Vendedor" onChange={(e) => setType(e.target.value)} type="text" />
-            <button type="submit"><h1>CADASTRAR</h1></button>
+            <>
+                <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} type="email" />
+                <input placeholder="Password" onChange={(e) => setPassword(e.target.value)} type="password" />
+                <button type="submit"><h1>ENTRAR</h1></button>
+            </>
+            <Link to="/sign-up"><p>Não possui conta? Cadastra-se agora!</p></Link>
         </App>
     )
 
@@ -48,11 +57,11 @@ function SignIn() {
 
 const App = styled.form`
     width: 100vw;
-    height: 100%;
+    min-height: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 10px;
     background-color: #5271FF;
     & input{
         width: 60vw;
@@ -69,12 +78,15 @@ const App = styled.form`
         border-radius: 20px;
         color: #5271FF;
         cursor: pointer;
+        margin-bottom: 20px;
     } & h1{
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 700;
         font-size: 14px;
         line-height: 16px;
+    } & p{
+        color: #FFFFFF;
     }
 `
 const Header = styled.div`

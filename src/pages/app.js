@@ -5,7 +5,8 @@ import { ProductsProvider } from "./components/productsCotext";
 import { UserProvider } from "./components/userContext";
 import Home from "./home/home";
 import ProductPage from "./productPage/productPage";
-import SignIn from "./signup/signin";
+import SignIn from "./signin/signin";
+import SignUp from "./signup/signup";
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/product/:productName" element={<ProductPage />} />
                             <Route path="/sign-in" element={<SignIn />} />
+                            <Route path="/sign-up" element={<SignUp />} />
                         </Routes>
                     </BrowserRouter>
                 </ProductsProvider>
