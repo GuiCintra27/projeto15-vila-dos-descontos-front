@@ -15,8 +15,8 @@ export default function ProductPage() {
     const [product, setProduct] = useState('');
     const [quantity, setQuantity] = useState(1);
     const header = { headers: { 'Authorization': `Bearer ${TOKEN}` } };
-    const PRODUCTSURL = 'http://localhost:5000/products';
-    const CARTURL = 'http://localhost:5000/cart';
+    const PRODUCTSURL = 'https://vila-dos-descontos.onrender.com/products';
+    const CARTURL = 'https://vila-dos-descontos.onrender.com/cart';
 
     useEffect(() => {
         axios.get(PRODUCTSURL)

@@ -6,11 +6,12 @@ import styled from "styled-components";
 import Header from "../components/header";
 import UserContext from "../components/userContext";
 import CartItem from "./cartItem";
+import Loading from "../components/loading";
 
 export default function Cart() {
     const navigate = useNavigate();
     const { TOKEN, cart, setCart } = useContext(UserContext);
-    const URL = 'http://localhost:5000/cart';
+    const URL = 'https://vila-dos-descontos.onrender.com/cart';
     const header = { headers: { "Authorization": `Bearer ${TOKEN}` } };
 
     useEffect(() => {
@@ -21,14 +22,14 @@ export default function Cart() {
             })
             .catch((err) => {
                 let error = err.response.data;
-                if(error === 'Not Found'){
+                if (error === 'Not Found') {
                     error = 'Usuário não está logado';
                 }
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: error
-                  });
+                });
                 navigate('/');
             });
     }, []);
@@ -37,6 +38,7 @@ export default function Cart() {
         <>
             <Header />
             <Container>
+
                 <h1>Meu carrinho</h1>
                 <div className="productsContainer">
                     <div className="informations">
@@ -47,13 +49,20 @@ export default function Cart() {
 
                     <div className="topLine" />
 
-                    <div className="scroll">
-                        {
-                            cart.map((item) => (
-                                <CartItem name={item.name} image={item.image} quantity={item.quantity} value={item.value} />
-                            ))
-                        }
-                    </div>
+                    {cart.length === 0 ? (
+                        <Loading />
+                    ) : (
+                        <>
+                            <div className="scroll">
+                                {
+                                    cart.map((item) => (
+                                        <CartItem name={item.name} image={item.image} quantity={item.quantity} value={item.value} />
+                                    ))
+                                }
+
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 <Link to={'/checkout'}>

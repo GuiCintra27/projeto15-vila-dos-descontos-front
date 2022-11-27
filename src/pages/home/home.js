@@ -5,35 +5,43 @@ import Header from '../components/header';
 import cover from '../../assets/site-elements/Background.png';
 import Product from './product';
 import ProductsContext from '../components/productsCotext';
+import Loading from '../components/loading';
 
 export default function Home() {
-    const {products, setProducts} = useContext(ProductsContext);
-    const URL = 'http://localhost:5000/products';
+    const { products, setProducts } = useContext(ProductsContext);
+    const URL = 'https://vila-dos-descontos.onrender.com/products';
 
     useEffect(() => {
         axios.get(URL)
-        .then((response) => {
-            const productsResponse = response.data;
-            setProducts([...productsResponse]);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    },[])
+            .then((response) => {
+                const productsResponse = response.data;
+                setProducts([...productsResponse]);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [])
 
     return (
         <>
-            <Header/>
+            <Header />
 
-            <Cover src={cover} alt='cover'/>
+            <Cover src={cover} alt='cover' />
 
-            <ProductsDescription>Produtos em Destaque</ProductsDescription>
+            {products.length === 0 ? (
+                <Loading />
+            ) : (
+                <>
+                    <ProductsDescription>Produtos em Destaque</ProductsDescription>
 
-            <Products>
-                {products.map((item, index) => (
-                    <Product key={index} name={item.name} image={item.image} value={item.value}/>
-                ))}
-            </Products>
+                    <Products>
+                        {products.map((item, index) => (
+                            <Product key={index} name={item.name} image={item.image} value={item.value} />
+                        ))}
+                    </Products>
+                </>
+            )}
+
         </>
     );
 }
