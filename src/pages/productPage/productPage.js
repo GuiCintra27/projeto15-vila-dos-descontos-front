@@ -67,25 +67,43 @@ export default function ProductPage() {
     }
 
     function buyProduct() {
-        const body = { productName, quantity };
-        axios.post(CARTURL, body, header)
-            .then(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Produto adicionado à cesta!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                navigate('/cart');
-            })
-            .catch((err) => {
-                console.log(err);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'O produto não pôde ser selecionado'
-                });
+
+        if (TOKEN.length === 0) {
+            Swal.fire({
+                title: 'Oops...',
+                text: "O usuário não está logado. Deseja fazer o login?",
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, desejo logar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/sign-in');
+                }
             });
+        } else {
+            const body = { productName, quantity };
+            axios.post(CARTURL, body, header)
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Produto adicionado à cesta!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    navigate('/cart');
+                })
+                .catch((err) => {
+                    console.log(err);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'O produto não pôde ser selecionado'
+                    });
+                });
+        }
+
     }
 
 
@@ -130,7 +148,8 @@ const Body = styled.div`
 const ProductBriefing = styled.div`
     background-color: white;
     width: 90vw;
-    height: 50vh;
+    min-height: 50vh;
+    height: fit-content;
     margin-top: 3rem;
     margin-inline: auto;
     padding-inline: 1.875rem;
@@ -149,6 +168,7 @@ const ProductBriefing = styled.div`
 
     & > h2{
         font-size: 21px;
+        margin-bottom: 3rem;
     }
 
     .line{

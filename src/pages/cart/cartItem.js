@@ -11,7 +11,7 @@ export default function CartItem({name, image, quantity, value}) {
                     <p>{name}</p>
                 </div>
                 <p className="quantity">{quantity}</p>
-                <p className="value">R$ {formatedValue}</p>
+                <p className="value">R$ {(formatedValue * quantity).toFixed(2)}</p>
             </Item>
             <Line />
         </>

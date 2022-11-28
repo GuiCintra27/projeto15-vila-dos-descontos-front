@@ -53,31 +53,18 @@ const Cover = styled.img`
 `;
 
 const Products = styled.div`
-    overflow: scroll;
+    width: 88%;
+    height: fit-content;
     margin-inline: auto;
-    width: 95%;
-    height: 20rem;
-    padding-inline: 1rem;
-    background-color: var(--white);
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-
-    ::-webkit-scrollbar{
-      width: 0px;
-      height: 0px;
-    }
-
-    ::-webkit-scrollbar-track{
-      background: transparent;
-    }
+    flex-wrap: wrap;
+    gap: 3rem;
+    background-color: var(--white);
 `;
 
 const ProductsDescription = styled.h1`
     font-size: 20px;
     font-weight: 500;
     margin-left: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 `;

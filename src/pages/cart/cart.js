@@ -49,26 +49,32 @@ export default function Cart() {
 
                     <div className="topLine" />
 
-                    {cart.length === 0 ? (
+                    {cart === 0 ? (
                         <Loading />
                     ) : (
-                        <>
-                            <div className="scroll">
-                                {
-                                    cart.map((item, index) => (
-                                        <CartItem key={index} name={item.name} image={item.image} quantity={item.quantity} value={item.value} />
-                                    ))
-                                }
-
+                        cart.length === 0 ? (
+                            <div className="null">
+                                <h2>Seu ainda carrinho está vazio :(</h2>
                             </div>
-                        </>
+                        ) : (
+                            <>
+                                <div className="scroll">
+                                    {
+                                        cart.map((item, index) => (
+                                            <CartItem key={index} name={item.name} image={item.image} quantity={item.quantity} value={item.value} />
+                                        ))
+                                    }
+
+                                </div>
+                            </>
+                        )
                     )}
                 </div>
 
                 <Link to={'/checkout'}>
                     <button>Finalizar Compra</button>
                 </Link>
-            </Container>
+            </Container >
         </>
     );
 }
@@ -127,6 +133,17 @@ const Container = styled.div`
            margin-inline: auto;
            height: .17rem;
            background-color: var(--break-line);
+       }
+
+       & > .null{
+            width: 80%;
+            height: 80%;
+            margin-inline: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--cart-null);
+            font-size: 22px;
        }
     }
 

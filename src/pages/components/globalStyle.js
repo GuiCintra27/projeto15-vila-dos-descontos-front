@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     --red: #ee4d31;
     --green: #8dd13e;
     --grey: #f5f5f5;
+    --cart-null: #c9c3c3;
   }
 
   html{
