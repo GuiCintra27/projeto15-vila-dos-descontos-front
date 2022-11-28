@@ -39,9 +39,7 @@ function CheckOut() {
         const Api = "https://vila-dos-descontos.onrender.com/checkout"
 
         const DadosCompra = {
-            headers: {
-                name
-            },
+            name,
             street,
             hNumber,
             thing,
@@ -50,12 +48,15 @@ function CheckOut() {
             state,
             cep,
             TOKEN,
-            product
+            product: [product]
 
         }
 
+        console.log(DadosCompra.product)
+
         const promise = axios.post(Api, DadosCompra)
-        promise.then(() => {
+        promise.then((props) => {
+            console.log(props.data);
             alert("Compra concluída com sucesso!")
 
         })
