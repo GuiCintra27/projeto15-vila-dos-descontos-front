@@ -21,7 +21,8 @@ function CheckOut() {
     const ApiCart = "https://vila-dos-descontos.onrender.com/cart"
 
     useEffect(()=> {
-        const promise = axios.get(ApiCart, TOKEN)
+        const authorization = { headers: { "Authorization": `Bearer ${TOKEN}` } };
+        const promise = axios.get(ApiCart, authorization)
         promise.then((props) => {
             console.log(props.data)
 
