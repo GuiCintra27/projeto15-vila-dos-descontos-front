@@ -113,6 +113,7 @@ const Submit = styled.form`
         border-radius: 5px;
         height: 30px;
         border: none;
+        margin-top: 20px;
 
     } & h1{
         font-family: 'Roboto';
