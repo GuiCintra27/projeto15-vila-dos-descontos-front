@@ -5,14 +5,12 @@ import Logo from "../../assets/site-elements/LogoWhite.png"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import UserContext from "../components/userContext";
-import { useContext } from "react";
 
 function SignIn() {
     const {setTOKEN} = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
     const nav = useNavigate();
-    const {setTOKEN} = useContext(UserContext)
 
     function Register() {
 
