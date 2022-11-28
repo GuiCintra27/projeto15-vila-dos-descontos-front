@@ -4,16 +4,19 @@ import { useState } from "react";
 import Logo from "../../assets/site-elements/LogoWhite.png"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import UserContext from "../components/userContext";
+import { useContext } from "react";
 
 function SignIn() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
     const nav = useNavigate();
+    const {setTOKEN} = useContext(UserContext)
 
-    function Register(e) {
+    function Register() {
 
-        const Api = ""
+        const Api = "http://localhost:5000/sign-in"
 
         const objUser = {
             email,
@@ -23,20 +26,20 @@ function SignIn() {
         console.log(objUser);
 
         const promise = axios.post(Api, objUser);
-        promise.then(() => {
-
+        promise.then((props) => {
+            console.log(props)
+            const token = props.data.searchUser.token
+            setTOKEN(token);
             nav("/");
-
-
         });
-        promise.catch((err) => err.details.error)
+        promise.catch((err) => alert(err));
 
 
     }
 
     function CheckRegister(e) {
         e.preventDefault();
-        Register()
+        Register();
     }
 
     return (

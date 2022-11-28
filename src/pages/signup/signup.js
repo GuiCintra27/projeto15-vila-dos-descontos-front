@@ -13,9 +13,9 @@ function SignUp() {
     const [type, setType] = useState("");
     const nav = useNavigate();
 
-    function Register(e){
+    function Register(){
 
-        const Api = "";
+        const Api = "http://localhost:5000/sign-up"
         
         const objUser = {
             name,
@@ -27,13 +27,12 @@ function SignUp() {
         console.log(objUser);
 
         const promise = axios.post(Api, objUser);
-        promise.then(() => {
-
+        promise.then((props) => {
+            console.log(props.data);
             nav("/sign-in");
 
-
         });
-        promise.catch((err) => err.details.error)
+        promise.catch((props) => alert(props));
         
 
     }
