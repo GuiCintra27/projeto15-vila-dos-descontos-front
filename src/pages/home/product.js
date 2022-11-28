@@ -13,7 +13,7 @@ export default function Product({name, image, value}){
         <Container onClick={goToProduct}>
             <img src={image} alt={name}/>
 
-            <h4>{name}</h4>
+            <h4 className='name'>{name.length >= 35 ? `${name.substr(0,32)}...` : name}</h4>
 
             <p>R$ {formatedValue}</p>
         </Container>
@@ -41,6 +41,8 @@ const Container = styled.div`
         margin-inline: 1rem;
         font-weight: 400;
         font-size: 14px;
+        height: 3.2rem;
+        overflow-y: hidden;
     }
 
     p{
