@@ -36,7 +36,7 @@ function CheckOut() {
 
     function ConfirmBuy() {
 
-        const Api = "http://localhost:5000/checkout"
+        const Api = "https://vila-dos-descontos.onrender.com/checkout"
 
         const DadosCompra = {
             headers: {
