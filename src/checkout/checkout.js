@@ -26,12 +26,44 @@ function CheckOut() {
         promise.catch((error) => alert(error))
     }, []) */
 
+    function ConfirmBuy(){
+
+        const Api = ""
+
+        const DadosCompra = {
+            headers: {
+                name
+            },
+            street,
+            hNumber,
+            thing,
+            neighborhood,
+            city,
+            state,
+            cep
+            
+        }
+
+        const promise = axios.post(Api ,DadosCompra)
+        promise.then((props) => {
+            setProduct(props.data)
+
+        })
+        promise.catch((error) => alert(error))
+
+    }
+
+    function Buy(e){
+        e.preventDefault();
+        ConfirmBuy();
+    }
+
     return (
         <App>
             <Product>
 
             </Product>
-            <Submit onSubmit="">
+            <Submit onSubmit={Buy}>
                 <input type="text" onChange={(e) => setName(e.target.value)} placeholder="Nome Completo" required />
                 <Teste>
                     <input type="text" onChange={(e) => setStreet(e.target.value)} placeholder="Rua/Logradouro" required />
