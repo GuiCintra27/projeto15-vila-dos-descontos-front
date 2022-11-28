@@ -2,6 +2,9 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import UserContext from "../pages/components/userContext";
+import Header from '../pages/components/header.js';
+import Headset from '../assets/Acessórios.png'
+
 
 function CheckOut() {
 
@@ -14,25 +17,26 @@ function CheckOut() {
     const [state, setState] = useState("");
     const [cep, setCEP] = useState();
 
+
     /* --------------------State for Axios/Context--------------------- */
 
     const [product, setProduct] = useState([]);
     const { TOKEN } = useContext(UserContext);
     const ApiCart = "https://vila-dos-descontos.onrender.com/cart"
 
-    useEffect(()=> {
-        const authorization = { headers: { "Authorization": `Bearer ${TOKEN}` } };
-        const promise = axios.get(ApiCart, authorization)
-        promise.then((props) => {
-            console.log(props.data)
+    useEffect(() => {
+          const authorization = { headers: { "Authorization": `Bearer ${TOKEN}` } };
+          const promise = axios.get(ApiCart, authorization)
+          promise.then((props) => {
+            setProduct(props.data);
+  
+          })
+          promise.catch((error) => alert(error))
+      }, [])
 
-        })
-        promise.catch((error) => alert(error))
-    }, [])
+    function ConfirmBuy() {
 
-    function ConfirmBuy(){
-
-        const Api = ""
+        const Api = "http://localhost:5000/checkout"
 
         const DadosCompra = {
             headers: {
@@ -44,28 +48,33 @@ function CheckOut() {
             neighborhood,
             city,
             state,
-            cep
-            
+            cep,
+            TOKEN,
+            product
+
         }
 
-        const promise = axios.post(Api ,DadosCompra)
-        promise.then((props) => {
-            setProduct(props.data)
+        const promise = axios.post(Api, DadosCompra)
+        promise.then(() => {
+            alert("Compra concluída com sucesso!")
 
         })
         promise.catch((error) => alert(error))
 
     }
 
-    function Buy(e){
+    function Buy(e) {
         e.preventDefault();
         ConfirmBuy();
     }
 
+
+
     return (
         <App>
-            <Product>
 
+            <Product>
+                <Header />
             </Product>
             <Submit onSubmit={Buy}>
                 <input type="text" onChange={(e) => setName(e.target.value)} placeholder="Nome Completo" required />
@@ -94,15 +103,16 @@ const App = styled.div`
     padding-left: 15vw;
     padding-right: 15vw;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background-color: lightgrey;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 `
 
 const Submit = styled.form`
     display: flex;
-    margin-top: 100px;
+    margin-top: 5vw;
     width: 100%;
     flex-direction: column;
     gap: 10px;
@@ -116,6 +126,7 @@ const Submit = styled.form`
     } & button {
         border-radius: 5px;
         height: 30px;
+        width: 60vw;
         border: none;
         margin-top: 20px;
 
@@ -144,7 +155,31 @@ const Teste = styled.div`
 
 `
 const Product = styled.div`
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100vw;
+    & Header{
+        width: 100vw;
+    } .Produtos{
+        position: relative;
+        width: 70vw;
+        height: 30vw;
+        border: 1px solid lightblue;
+        box-sizing: border-box;
+        padding: 20px;
+    } .produto{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    } .total{
+        position: absolute;
+        display: flex;
+        width: 95%;
+        justify-content: space-between;
+        bottom: 20px;
+    }
 
 `
 
