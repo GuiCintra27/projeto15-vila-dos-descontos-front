@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import UserContext from "../pages/components/userContext";
 
 function CheckOut() {
 
@@ -13,18 +14,20 @@ function CheckOut() {
     const [state, setState] = useState("");
     const [cep, setCEP] = useState();
 
-    /* --------------------State for Axios--------------------- */
+    /* --------------------State for Axios/Context--------------------- */
 
-    const [product, setProduct] = useState([])
+    const [product, setProduct] = useState([]);
+    const { TOKEN } = useContext(UserContext);
+    const ApiCart = "https://vila-dos-descontos.onrender.com/cart"
 
-/*     useEffect(()=> {
-        const promise = axios.get()
+    useEffect(()=> {
+        const promise = axios.get(ApiCart, TOKEN)
         promise.then((props) => {
-            setProduct(props.data)
+            console.log(props.data)
 
         })
         promise.catch((error) => alert(error))
-    }, []) */
+    }, [])
 
     function ConfirmBuy(){
 
