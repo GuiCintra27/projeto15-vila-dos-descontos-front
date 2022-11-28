@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CheckOut from "../checkout/checkout";
 import Cart from "./cart/cart";
 import GlobalStyle from "./components/globalStyle";
 import { ProductsProvider } from "./components/productsCotext";
@@ -21,6 +22,7 @@ export default function App() {
                             <Route path="/product/:productName" element={<ProductPage />} />
                             <Route path="/sign-in" element={<SignIn />} />
                             <Route path="/sign-up" element={<SignUp />} />
+                            <Route path="/checkout" element={<CheckOut />} />
                         </Routes>
                     </BrowserRouter>
                 </ProductsProvider>

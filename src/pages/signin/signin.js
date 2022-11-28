@@ -5,32 +5,41 @@ import Logo from "../../assets/site-elements/LogoWhite.png"
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import UserContext from "../components/userContext";
+import { useContext } from "react";
 
 function SignIn() {
     const {setTOKEN} = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
     const nav = useNavigate();
+    const {setTOKEN} = useContext(UserContext)
 
     function Register() {
+
         const Api = "https://vila-dos-descontos.onrender.com/sign-in"
 
         const objUser = {
             email,
             password
-        };
 
-        axios.post(Api, objUser)
-        .then((response) => {
-            setTOKEN(response.data);
+        }
+
+        console.log(objUser);
+
+        const promise = axios.post(Api, objUser);
+        promise.then((props) => {
+            console.log(props)
+            const token = props.data.searchUser.token
+            setTOKEN(token);
             nav("/");
-        })
-        .catch((err) => console.log(err.details.error));
+        });
+        promise.catch((err) => alert(err));
+
     }
 
     function CheckRegister(e) {
         e.preventDefault();
-        Register()
+        Register();
     }
 
     return (

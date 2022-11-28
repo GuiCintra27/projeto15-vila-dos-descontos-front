@@ -13,7 +13,7 @@ function SignUp() {
     const [type, setType] = useState("");
     const nav = useNavigate();
 
-    function Register(e){
+    function Register(){
 
         const Api = "https://vila-dos-descontos.onrender.com/sign-in";
         
@@ -27,13 +27,12 @@ function SignUp() {
         console.log(objUser);
 
         const promise = axios.post(Api, objUser);
-        promise.then(() => {
-
+        promise.then((props) => {
+            console.log(props.data);
             nav("/sign-in");
 
-
         });
-        promise.catch((err) => err.details.error)
+        promise.catch((props) => alert(props));
         
 
     }
